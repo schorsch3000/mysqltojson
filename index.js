@@ -5,30 +5,33 @@ const connection = mysql.createConnection({
     host: args.h,
     user: args.u,
     password: args.p,
-    database: args.d
+    database: args.d,
+    charset: "utf8_general_ci"
 });
+
 
 connection.connect();
 let query = connection.query(args.q);
 let lastRow = false;
 query
     .on('error', function (err) {
-        console.log(err);
+        process.stderr.write(err + "\n");
         process.exit(1);
     })
     .on('fields', function () {
-        console.log("[");
+        process.stdout.write("[");
     })
     .on('result', function (row) {
-        if (false !== lastRow)
-            console.log(lastRow, ",");
+        if (false !== lastRow) {
+            process.stdout.write(lastRow);
+            process.stdout.write(",");
+        }
         connection.pause();
         lastRow = JSON.stringify(row);
         connection.resume();
-
     })
     .on('end', function () {
-        console.log(lastRow);
-        console.log("]");
+        process.stdout.write(lastRow);
+        process.stdout.write("]\n");
     });
 connection.end();
