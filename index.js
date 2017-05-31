@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const args = require("yargs").argv;
 const mysql = require('mysql');
 const connection = mysql.createConnection({
