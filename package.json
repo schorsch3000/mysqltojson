@@ -1,0 +1,13 @@
+{
+  "name": "mysqltojson",
+  "version": "0.1.1",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "mysql": "^2.13.0",
+    "yargs": "^8.0.1"
+  },
+  "bin": {
+    "mysqltojson": "./index.js"
+  }
+}
